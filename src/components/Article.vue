@@ -1,5 +1,5 @@
 <template>
-  <article class="shrink md:w-3/5 text-center md:text-left">
+  <article class="shrink md:w-4/5 lg:w-3/5 text-center md:text-left">
     <h1 class="text-5xl font-bold mb-8 md:mb-10">Hello world!</h1>
     <p class="mb-5 md:mb-8 pr-5 md:leading-8">
       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum vel

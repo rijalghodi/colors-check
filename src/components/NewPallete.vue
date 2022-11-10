@@ -1,64 +1,82 @@
 <template>
-  <form @submit.prevent="onSubmit" class="bordered p-3 mb-10 text-base">
+  <form class="bordered p-3 mb-10 text-base">
     <!-- Colors -->
     <h2 class="text-lg mb-3">New Color Pallete</h2>
-    <div class="flex flex-row gap-2 mb-5">
+    <div class="flex flex-row mb-5">
       <!-- Primary -->
-      <div class="justify-start shrink grow w-50">
-        <label for="primary" class="w-full block text-left text-sm"
+      <div>
+        <label for="primary" class="w-full block text-center text-sm"
           >Primary</label
         >
         <input
           id="primary"
-          class="bordered w-full bg-transparent px-2 py-0.5"
-          placeholder="#FFFFFF"
+          class="w-full bg-transparent px-2 py-1 text-center"
+          v-bind:style="{
+            'background-color': primary,
+            color: primaryComplement,
+          }"
+          placeholder="#HEX"
           v-model="primary"
         />
       </div>
       <!-- Neutral -->
       <div>
-        <div class="flex flex-row gap-2 items-center">
-          <label for="neutral" class="text-sm">Neutral</label>
-          <div
-            class="w-3 h-3 rounded-full"
-            v-bind:style="{ 'background-color': neutral }"
-          ></div>
-        </div>
+        <label for="neutral" class="w-full block text-center text-sm"
+          >Neutral</label
+        >
+
         <input
           id="neutral"
-          class="w-full bg-transparent bordered px-2 py-0.5"
-          placeholder="#772299"
+          class="w-full bg-transparent px-2 py-1 text-center"
+          v-bind:style="{
+            'background-color': neutral,
+            color: neutralComplement,
+          }"
+          placeholder="#HEX"
           v-model="neutral"
-          @change="onChange"
         />
       </div>
       <!-- Accent -->
       <div>
-        <div class="flex flex-row gap-2 items-center">
-          <label for="accent" class="text-sm">Accent</label>
-          <div
-            class="w-3 h-3 rounded-full"
-            v-bind:style="{ 'background-color': accent }"
-          ></div>
-        </div>
+        <label for="accent" class="w-full block text-center text-sm"
+          >Accent</label
+        >
         <input
           id="accent"
-          class="w-full bg-transparent bordered px-2 py-0.5"
-          placeholder="#772299"
+          class="w-full bg-transparent px-2 py-1 text-center"
+          v-bind:style="{
+            'background-color': accent,
+            color: accentComplement,
+          }"
+          placeholder="#HEX"
           v-model="accent"
         />
       </div>
     </div>
-    <div class="flex flex-row justify-center gap-1">
+    <div class="flex flex-row justify-center gap-2">
       <button
         @click="onApply"
         type="button"
+        title="Apply Pallete as Color Theme"
         class="primary-button px-7 py-1 border w-auto"
       >
-        Apply
+        <i class="fa-solid fa-check"></i>
       </button>
-      <button type="submit" class="primary-button px-7 py-1 border w-auto">
-        Save
+      <button
+        @click="onSave"
+        type="button"
+        title="Save Color Theme"
+        class="primary-button px-7 py-1 border w-auto"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <button
+        @click="onReset"
+        type="reset"
+        title="Reset Color Theme"
+        class="primary-button px-7 py-1 border w-auto"
+      >
+        <i class="fa-solid fa-arrow-rotate-left"></i>
       </button>
     </div>
   </form>
@@ -66,15 +84,47 @@
 
 <script>
 let isHexColor = require("../util/isHexColor");
+// let isLightColor = require("../util/isLightColor.js");
+
 export default {
   name: "NewPallete",
+  props: ["defaultColorTheme"],
   data() {
     return {
-      primary: "#000000",
-      neutral: "#FFFBBB",
-      accent: "#BFABAB",
+      defaultColor: this.defaultColorTheme,
+      primary: "",
+      neutral: "",
+      accent: "",
     };
   },
+  mounted() {
+    this.$root.$on("update-input-color", (newColorTheme) => {
+      console.log(newColorTheme);
+    });
+  },
+  // computed: {
+  //   primaryComplement() {
+  //     if (this.primary) {
+  //       return isLightColor(this.primary) ? "#000000" : "#FFFFFF";
+  //     } else {
+  //       return "#FFF";
+  //     }
+  //   },
+  //   neutralComplement() {
+  //     if (this.neutral) {
+  //       return isLightColor(this.neutral) ? "#000000" : "#FFFFFF";
+  //     } else {
+  //       return "#FFF";
+  //     }
+  //   },
+  //   accentComplement() {
+  //     if (this.accent) {
+  //       return isLightColor(this.accent) ? "#000000" : "#FFFFFF";
+  //     } else {
+  //       return "#FFF";
+  //     }
+  //   },
+  // },
   methods: {
     onApply() {
       if (
@@ -82,6 +132,7 @@ export default {
         !isHexColor(this.neutral) ||
         !isHexColor(this.accent)
       ) {
+        alert("Please add the colors with hex format (for example: #FFFFFF)");
         return;
       }
 
@@ -93,7 +144,7 @@ export default {
 
       this.$emit("apply-color-theme", newColorTheme);
     },
-    onSubmit() {
+    onSave() {
       if (
         !isHexColor(this.primary) ||
         !isHexColor(this.neutral) ||
@@ -105,6 +156,7 @@ export default {
 
       const newPallete = {
         id: `${this.primary.toLowerCase()}${this.neutral.toLowerCase()}${this.accent.toLowerCase()}`,
+        applied: false,
         primary: this.primary,
         neutral: this.neutral,
         accent: this.accent,
@@ -112,14 +164,12 @@ export default {
 
       this.$emit("add-pallete", newPallete);
     },
-  },
-  watch: {
-    // // whenever color input changes, this function will run
-    // question(newQuestion, oldQuestion) {
-    //   if (newQuestion.includes('?')) {
-    //     this.getAnswer()
-    //   }
-    // }
+    onReset() {
+      this.primary = "";
+      this.neutral = "";
+      this.accent = "";
+      this.$emit("apply-color-theme", this.defaultColor);
+    },
   },
 };
 </script>

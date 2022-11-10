@@ -1,14 +1,19 @@
 <template>
   <main
-    class="text-center min-w-full flex flex-row flex-wrap justify-center gap-14 pt-10 md:pt-20 md:relative md:h-screen md:top-7"
+    class="text-center min-w-full min-h-screen flex flex-row flex-wrap justify-center gap-14 pt-10 lg:pt-20 lg:h-screen"
   >
     <ArticleVue />
     <aside class="first-line:shrink sm:w-2/3 md:grow md:w-1/3 md:max-w-[400px]">
       <NewPallete
         @apply-color-theme="applyColorTheme"
         @add-pallete="addPallete"
+        :defaultColorTheme="defaultColorTheme"
       />
-      <PalletesVue @delete-pallete="deletePallete" :palletes="palletes" />
+      <PalletesVue
+        @apply-pallete="applyPallete"
+        @delete-pallete="deletePallete"
+        :palletes="palletes"
+      />
     </aside>
   </main>
 </template>
@@ -20,6 +25,9 @@ import PalletesVue from "./Palletes.vue";
 
 export default {
   name: "MainVue",
+  props: {
+    defaultColorTheme: Object,
+  },
   components: {
     ArticleVue,
     NewPallete,
@@ -28,6 +36,28 @@ export default {
   methods: {
     applyColorTheme(newColorTheme) {
       this.$emit("apply-color-theme", newColorTheme);
+    },
+
+    applyPallete(id) {
+      const palletes = this.palletes;
+      // Remove the previous color theme, if there is
+      const prevPallet = palletes.find((pallete) => pallete.applied);
+      // console.log(prevPallet);
+      if (prevPallet) {
+        prevPallet.applied = false;
+      }
+
+      // Set pallete as color theme
+      const pallete = palletes.find((pallete) => pallete.id === id);
+      pallete.applied = true;
+
+      const newColorTheme = {
+        primary: pallete.primary,
+        neutral: pallete.neutral,
+        accent: pallete.accent,
+      };
+      this.$emit("apply-pallete", newColorTheme);
+      this.$root.$emit("update-input-color", newColorTheme);
     },
 
     deletePallete(id) {
@@ -51,28 +81,26 @@ export default {
       palletes: [
         {
           id: "#ffffff#335555#ff6347",
-          primary: "#ffffff",
-          neutral: "#335555",
-          accent: "#FF6347",
+          applied: false,
+          primary: "#041425",
+          neutral: "#e7efed",
+          accent: "#6b07ed",
         },
         {
           id: "#ffffff#222222#42db8c",
+          applied: false,
           primary: "#ffffff",
           neutral: "#222222",
           accent: "#42db8c",
         },
         {
-          id: "#ffdd55#522888#f5bb06",
-          primary: "#ffdd55",
+          id: "#ffffff#522888#f5bb06",
+          applied: false,
+          primary: "#ffffff",
           neutral: "#522888",
           accent: "#f5bb06",
         },
       ],
-      defaultColors: {
-        primary: "#FFF",
-        neutral: "#355",
-        accent: "#FF6347",
-      },
     };
   },
 };

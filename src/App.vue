@@ -1,7 +1,11 @@
 <template>
   <div class="app">
     <HeaderBar />
-    <MainVue @apply-color-theme="applyColorTheme" />
+    <MainVue
+      @apply-color-theme="applyColorTheme"
+      :defaultColorTheme="colorTheme"
+      @apply-pallete="applyPallete"
+    />
   </div>
 </template>
 
@@ -20,27 +24,39 @@ export default {
     return {
       colorTheme: {
         primary: "#FFFFFF",
-        neutral: "#113434",
+        neutral: "#273e47",
         accent: "#FF7559",
-      },
-      defaultColorTheme: {
-        primary: "#FFF",
-        neutral: "#355",
-        accent: "#FF6347",
       },
     };
   },
   computed: {
-    accentComplement() {
-      if (isLightColor(this.colorTheme.accent)) {
-        return "#000000";
+    primaryComplement() {
+      if (this.primary) {
+        return isLightColor(this.primary) ? "#000000" : "#FFFFFF";
       } else {
-        return "#FFFFFF";
+        return "#FFF";
+      }
+    },
+    neutralComplement() {
+      if (this.neutral) {
+        return isLightColor(this.neutral) ? "#000000" : "#FFFFFF";
+      } else {
+        return "#FFF";
+      }
+    },
+    accentComplement() {
+      if (this.accent) {
+        return isLightColor(this.accent) ? "#000000" : "#FFFFFF";
+      } else {
+        return "#FFF";
       }
     },
   },
   methods: {
     applyColorTheme(newColorTheme) {
+      this.colorTheme = newColorTheme;
+    },
+    applyPallete(newColorTheme) {
       this.colorTheme = newColorTheme;
     },
   },
@@ -53,6 +69,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
+  font-size: 18px;
 }
 .app {
   padding-top: 20px;
@@ -65,6 +82,14 @@ export default {
 
 h1 {
   color: v-bind("colorTheme.accent");
+}
+
+button {
+  padding: 0.3rem 1rem !important;
+}
+
+input:focus {
+  outline: none;
 }
 
 .primary-button:hover {
@@ -93,5 +118,27 @@ h1 {
 
 .bordered {
   border: 1px solid v-bind("colorTheme.primary");
+}
+
+.applied {
+  color: v-bind("colorTheme.accent");
+  font-size: 1.5rem;
+  transition: 0.2s ease-out;
+}
+
+.input-primary {
+  color: v-bind("primaryComplement");
+  background-color: v-bind("colorTheme.primary");
+}
+
+.input-neutral {
+  color: v-bind("neutralComplement");
+  background-color: v-bind("colorTheme.neutral");
+}
+
+.input-accent {
+  color: v-bind("accentComplement");
+
+  background-color: v-bind("colorTheme.accent");
 }
 </style>

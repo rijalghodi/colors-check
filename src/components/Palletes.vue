@@ -4,11 +4,12 @@
     <div class="flex flex-col item-center justify-center gap-2">
       <div
         title="Apply"
-        class="p-2 flex justify-center gap-1"
+        class="p-2 h-12 flex justify-center duration-300 ease-out"
         :key="pallete.id"
         v-for="pallete in palletes"
       >
         <PalleteVue
+          @apply-pallete="$emit('apply-pallete', pallete.id)"
           @delete-pallete="$emit('delete-pallete', pallete.id)"
           :pallete="pallete"
         />
@@ -28,7 +29,7 @@ export default {
   props: {
     palletes: Array,
   },
-  emits: ["delete-pallete"],
+  emits: ["delete-pallete", "apply-pallete"],
 };
 </script>
 

@@ -1,23 +1,26 @@
 <template>
-  <button title="Apply">
-    <i class="fa-solid fa-check"></i>
+  <button
+    title="Apply as Color Theme"
+    @click="$emit('apply-pallete', pallete.id)"
+  >
+    <i :class="['fa-solid', 'fa-check', pallete.applied ? 'applied' : '']"></i>
   </button>
   <div
-    class="w-1/4 py-1"
+    class="w-1/4"
     v-bind:style="{ 'background-color': pallete.primary }"
-  >
-    {{ pallete.primary }}
-  </div>
+  ></div>
   <div
     class="w-1/4 py-1"
     v-bind:style="{ 'background-color': pallete.neutral }"
+  ></div>
+  <div
+    class="w-1/4 py-1"
+    v-bind:style="{ 'background-color': pallete.accent }"
+  ></div>
+  <button
+    title="Delete This Pallete"
+    @click="$emit('delete-pallete', pallete.id)"
   >
-    {{ pallete.neutral }}
-  </div>
-  <div class="w-1/4 py-1" v-bind:style="{ 'background-color': pallete.accent }">
-    {{ pallete.accent }}
-  </div>
-  <button title="Delete" @click="$emit('delete-pallete', pallete.id)">
     <i class="fa-solid fa-times"></i>
   </button>
 </template>
@@ -29,6 +32,10 @@ export default {
     pallete: Object,
   },
   methods: {
+    onApplyPallete(pallete) {
+      this.$emit("apply-pallete", pallete.id);
+      this.$root$emit("update-input-color", pallete);
+    },
     onDelete(id) {
       this.$emit("deletePallete", id);
     },
