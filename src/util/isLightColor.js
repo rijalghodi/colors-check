@@ -2,17 +2,22 @@ let isHexColor = require("./isHexColor");
 
 function hexToRGB(hex) {
   // https://javascript.plainenglish.io/convert-hex-to-rgb-with-javascript-4984d16219c3
-
-  if (hex.length != 7) {
-    throw "Only six-digit hex colors are allowed.";
+  var aRgb, aRgbHex;
+  if (hex.length === 7) {
+    aRgbHex = hex.slice(1).match(/.{2}/g);
+    aRgb = [
+      parseInt(aRgbHex[0], 16),
+      parseInt(aRgbHex[1], 16),
+      parseInt(aRgbHex[2], 16),
+    ];
+  } else if (hex.length === 4) {
+    aRgbHex = hex.slice(1).match(/.{1}/g);
+    aRgb = [
+      parseInt(`${aRgbHex[0]}${aRgbHex[0]}`, 16),
+      parseInt(`${aRgbHex[0]}${aRgbHex[0]}`, 16),
+      parseInt(`${aRgbHex[0]}${aRgbHex[0]}`, 16),
+    ];
   }
-
-  var aRgbHex = hex.slice(1).match(/.{2}/g);
-  var aRgb = [
-    parseInt(aRgbHex[0], 16),
-    parseInt(aRgbHex[1], 16),
-    parseInt(aRgbHex[2], 16),
-  ];
   return aRgb;
 }
 

@@ -11,11 +11,11 @@
         <input
           id="primary"
           class="w-full bg-transparent px-2 py-1 text-center"
+          placeholder="#HEX"
           v-bind:style="{
-            'background-color': primary,
+            'background-color': colorInput.primary,
             color: primaryComplement,
           }"
-          placeholder="#HEX"
           v-model="primary"
         />
       </div>
@@ -29,7 +29,7 @@
           id="neutral"
           class="w-full bg-transparent px-2 py-1 text-center"
           v-bind:style="{
-            'background-color': neutral,
+            'background-color': colorInput.neutral,
             color: neutralComplement,
           }"
           placeholder="#HEX"
@@ -45,7 +45,7 @@
           id="accent"
           class="w-full bg-transparent px-2 py-1 text-center"
           v-bind:style="{
-            'background-color': accent,
+            'background-color': colorInput.accent,
             color: accentComplement,
           }"
           placeholder="#HEX"
@@ -84,7 +84,8 @@
 
 <script>
 let isHexColor = require("../util/isHexColor");
-// let isLightColor = require("../util/isLightColor.js");
+let isLightColor = require("../util/isLightColor.js");
+let createId = require("../util/createId");
 
 export default {
   name: "NewPallete",
@@ -95,36 +96,64 @@ export default {
       primary: "",
       neutral: "",
       accent: "",
+      primaryComplement: "",
+      neutralComplement: "",
+      accentComplement: "",
     };
   },
-  mounted() {
-    this.$root.$on("update-input-color", (newColorTheme) => {
-      console.log(newColorTheme);
-    });
+
+  computed: {
+    colorInput() {
+      let colors = {};
+      if (isHexColor(this.primary)) {
+        colors.primary = this.primary;
+      } else {
+        colors.primary = "transparent";
+      }
+      if (isHexColor(this.neutral)) {
+        colors.neutral = this.neutral;
+      } else {
+        colors.neutral = "transparent";
+      }
+      if (isHexColor(this.accent)) {
+        colors.accent = this.accent;
+      } else {
+        colors.accent = "transparent";
+      }
+      return colors;
+    },
   },
-  // computed: {
-  //   primaryComplement() {
-  //     if (this.primary) {
-  //       return isLightColor(this.primary) ? "#000000" : "#FFFFFF";
-  //     } else {
-  //       return "#FFF";
-  //     }
-  //   },
-  //   neutralComplement() {
-  //     if (this.neutral) {
-  //       return isLightColor(this.neutral) ? "#000000" : "#FFFFFF";
-  //     } else {
-  //       return "#FFF";
-  //     }
-  //   },
-  //   accentComplement() {
-  //     if (this.accent) {
-  //       return isLightColor(this.accent) ? "#000000" : "#FFFFFF";
-  //     } else {
-  //       return "#FFF";
-  //     }
-  //   },
-  // },
+
+  watch: {
+    colorInput: {
+      handler(newColorInput) {
+        if (newColorInput.primary === "transparent") {
+          this.primaryComplement = "#FF0000";
+        } else if (isLightColor(newColorInput.primary)) {
+          this.primaryComplement = "#000000";
+        } else {
+          this.primaryComplement = "#FFFFFF";
+        }
+
+        if (newColorInput.neutral === "transparent") {
+          this.neutralComplement = "#FF0000";
+        } else if (isLightColor(newColorInput.neutral)) {
+          this.neutralComplement = "#000000";
+        } else {
+          this.neutralComplement = "#FFFFFF";
+        }
+
+        if (newColorInput.accent === "transparent") {
+          this.accentComplement = "#FF0000";
+        } else if (isLightColor(newColorInput.accent)) {
+          this.accentComplement = "#000000";
+        } else {
+          this.accentComplement = "#FFFFFF";
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     onApply() {
       if (
@@ -132,7 +161,9 @@ export default {
         !isHexColor(this.neutral) ||
         !isHexColor(this.accent)
       ) {
-        alert("Please add the colors with hex format (for example: #FFFFFF)");
+        alert(
+          "Please add the colors with hex format (for example: #FFFFFF or #FFF)"
+        );
         return;
       }
 
@@ -150,12 +181,14 @@ export default {
         !isHexColor(this.neutral) ||
         !isHexColor(this.accent)
       ) {
-        alert("Please add the colors with hex format (for example: #FFFFFF)");
+        alert(
+          "Please add the colors with hex format (for example: #FFFFFF or #FFF)"
+        );
         return;
       }
 
       const newPallete = {
-        id: `${this.primary.toLowerCase()}${this.neutral.toLowerCase()}${this.accent.toLowerCase()}`,
+        id: createId(this.primary, this.neutral, this.accent),
         applied: false,
         primary: this.primary,
         neutral: this.neutral,

@@ -7,7 +7,7 @@
       <NewPallete
         @apply-color-theme="applyColorTheme"
         @add-pallete="addPallete"
-        :defaultColorTheme="defaultColorTheme"
+        :defaultColorTheme="colorTheme"
       />
       <PalletesVue
         @apply-pallete="applyPallete"
@@ -26,7 +26,7 @@ import PalletesVue from "./Palletes.vue";
 export default {
   name: "MainVue",
   props: {
-    defaultColorTheme: Object,
+    colorTheme: Object,
   },
   components: {
     ArticleVue,
@@ -36,6 +36,12 @@ export default {
   methods: {
     applyColorTheme(newColorTheme) {
       this.$emit("apply-color-theme", newColorTheme);
+
+      const activePallet = this.palletes.find((pallete) => pallete.applied);
+      // console.log(prevPallet);
+      if (activePallet) {
+        activePallet.applied = false;
+      }
     },
 
     applyPallete(id) {
@@ -57,11 +63,11 @@ export default {
         accent: pallete.accent,
       };
       this.$emit("apply-pallete", newColorTheme);
-      this.$root.$emit("update-input-color", newColorTheme);
+      // this.$root.$emit("update-input-color", newColorTheme);
     },
 
     deletePallete(id) {
-      if (confirm("Are you sure?")) {
+      if (confirm("Are you sure to delete this pallete?")) {
         this.palletes = this.palletes.filter((pallete) => pallete.id !== id);
       }
     },
@@ -80,13 +86,6 @@ export default {
     return {
       palletes: [
         {
-          id: "#ffffff#335555#ff6347",
-          applied: false,
-          primary: "#041425",
-          neutral: "#e7efed",
-          accent: "#6b07ed",
-        },
-        {
           id: "#ffffff#222222#42db8c",
           applied: false,
           primary: "#ffffff",
@@ -99,6 +98,13 @@ export default {
           primary: "#ffffff",
           neutral: "#522888",
           accent: "#f5bb06",
+        },
+        {
+          id: "#ffffff#335555#ff6347",
+          applied: false,
+          primary: "#041425",
+          neutral: "#e7efed",
+          accent: "#6b07ed",
         },
       ],
     };

@@ -3,8 +3,8 @@
     <HeaderBar />
     <MainVue
       @apply-color-theme="applyColorTheme"
-      :defaultColorTheme="colorTheme"
-      @apply-pallete="applyPallete"
+      :colorTheme="colorTheme"
+      @apply-pallete="applyColorTheme"
     />
   </div>
 </template>
@@ -30,33 +30,12 @@ export default {
     };
   },
   computed: {
-    primaryComplement() {
-      if (this.primary) {
-        return isLightColor(this.primary) ? "#000000" : "#FFFFFF";
-      } else {
-        return "#FFF";
-      }
-    },
-    neutralComplement() {
-      if (this.neutral) {
-        return isLightColor(this.neutral) ? "#000000" : "#FFFFFF";
-      } else {
-        return "#FFF";
-      }
-    },
     accentComplement() {
-      if (this.accent) {
-        return isLightColor(this.accent) ? "#000000" : "#FFFFFF";
-      } else {
-        return "#FFF";
-      }
+      return isLightColor(this.colorTheme.accent) ? "#000000" : "#FFFFFF";
     },
   },
   methods: {
     applyColorTheme(newColorTheme) {
-      this.colorTheme = newColorTheme;
-    },
-    applyPallete(newColorTheme) {
       this.colorTheme = newColorTheme;
     },
   },
@@ -122,23 +101,7 @@ input:focus {
 
 .applied {
   color: v-bind("colorTheme.accent");
-  font-size: 1.5rem;
-  transition: 0.2s ease-out;
-}
-
-.input-primary {
-  color: v-bind("primaryComplement");
-  background-color: v-bind("colorTheme.primary");
-}
-
-.input-neutral {
-  color: v-bind("neutralComplement");
-  background-color: v-bind("colorTheme.neutral");
-}
-
-.input-accent {
-  color: v-bind("accentComplement");
-
-  background-color: v-bind("colorTheme.accent");
+  font-size: 1.6rem;
+  transition: 0.2s;
 }
 </style>
