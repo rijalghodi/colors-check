@@ -67,9 +67,7 @@ export default {
     },
 
     deletePallete(id) {
-      if (confirm("Are you sure to delete this pallete?")) {
-        this.palletes = this.palletes.filter((pallete) => pallete.id !== id);
-      }
+      this.palletes = this.palletes.filter((pallete) => pallete.id !== id);
     },
 
     addPallete(newPallete) {
@@ -85,6 +83,13 @@ export default {
   data() {
     return {
       palletes: [
+        {
+          id: "#ffffff#05192d#7fdd40",
+          applied: false,
+          primary: "#ffffff",
+          neutral: "#05192d",
+          accent: "#7fdd40",
+        },
         {
           id: "#ffffff#222222#42db8c",
           applied: false,
