@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex gap-x-16 gap-y-4 flex-wrap justify-start">
+  <nav class="flex gap-x-16 gap-y-4 flex-wrap justify-center md:justify-start">
     <div>
       <h1 class="text-xl">Colors & Fonts</h1>
     </div>

@@ -1,11 +1,13 @@
 <template>
-  <article class="shrink md:w-4/5 lg:w-3/5 text-center md:text-left">
-    <h1 class="text-5xl font-bold mb-8 md:mb-10">Welcome to Colors Check!</h1>
-    <p class="mb-5 md:mb-8 pr-5 md:leading-8 tracking-wider">
+  <article class="shrink md:w-4/5 lg:w-3/5">
+    <h1 class="text-5xl font-bold mb-8 md:mb-10 text-center md:text-left">
+      Welcome to Colors Check!
+    </h1>
+    <p class="mb-5 md:mb-8 pr-5 md:leading-8 tracking-wider text-left">
       Here, you can test your color combination and save it into pallete
       collection!
     </p>
-    <p class="mb-5 md:mb-8 pr-5 md:leading-8 tracking-wider">
+    <p class="mb-5 md:mb-8 pr-5 md:leading-8 tracking-wider text-left">
       This test follows the 60-30-10 rule to choose colors. Acording to this
       rule, you just need <span class="bold">three colors</span> to style your
       web. 60 percent of your web must be covered by the
@@ -16,7 +18,7 @@
       It should be unique and user-attention attractor. It is used for buttons
       and important texts.
     </p>
-    <p class="mb-5 md:mb-8 pr-5 md:leading-8 tracking-wider">
+    <p class="mb-5 md:mb-8 pr-5 md:leading-8 tracking-wider text-left">
       Try to insert three custom colors following 60-30-10 rule to style this
       site. Apply, evaluate, and save it if you like. Feel free to use the
       collection of color palletes to open your ideas.

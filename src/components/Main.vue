@@ -1,6 +1,6 @@
 <template>
   <main
-    class="text-center min-w-full min-h-screen flex flex-row flex-wrap justify-center gap-14 pt-10 lg:pt-20 lg:h-screen"
+    class="min-w-full min-h-screen flex flex-row flex-wrap justify-center gap-14 pt-10 lg:pt-20 lg:h-screen"
   >
     <ArticleVue />
     <aside class="first-line:shrink sm:w-2/3 md:grow md:w-1/3 md:max-w-[400px]">
