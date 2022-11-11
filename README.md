@@ -8,7 +8,7 @@ This app follows the 60-30-10 rule to define the color combination of a webpage.
 
 Here is what the app looks like:
 
-<img src="./src/assets/screenshot1.png"/>
+<img src="./src/assets/colors-check2.png"/>
 
 ## Features
 

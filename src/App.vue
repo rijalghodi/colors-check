@@ -24,7 +24,7 @@ export default {
     return {
       colorTheme: {
         primary: "#FFFFFF",
-        neutral: "#273e47",
+        neutral: "#243942",
         accent: "#FF7559",
       },
     };
@@ -69,6 +69,11 @@ button {
 
 input:focus {
   outline: none;
+}
+
+.bold {
+  color: v-bind("colorTheme.accent") !important;
+  font-weight: 500;
 }
 
 .primary-button:hover {
