@@ -1,7 +1,7 @@
 <template>
   <form class="bordered p-3 mb-10 text-base">
     <!-- Colors -->
-    <h2 class="text-lg mb-3">New Color Pallete</h2>
+    <h2 class="text-lg mb-3 text-center">New Color Pallete</h2>
     <div class="flex flex-row mb-5">
       <!-- Primary -->
       <div>

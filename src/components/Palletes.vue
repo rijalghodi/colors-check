@@ -1,6 +1,6 @@
 <template>
   <div class="bordered border selection:border py-3 px-1">
-    <h2 class="text-lg mb-3">Color Palletes</h2>
+    <h2 class="text-lg mb-3 text-center">Pallete Collection</h2>
     <div class="flex flex-col item-center justify-center gap-2">
       <div
         title="Apply"
