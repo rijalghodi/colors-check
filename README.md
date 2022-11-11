@@ -2,7 +2,11 @@
 
 ## Description
 
-An app to test the color combination balance in the common webpage
+An app to test the color combination balance in the webpage.
+
+This app follows the 60-30-10 rule to define the color combination of a webpage. It means that the web is colored commonly with 60% of neutral color (such as the background), 30% of primary color (such as text), and 10% of accent color (such as a button).
+
+Here is what the app looks like:
 
 <img src="./src/assets/screenshot1.png"/>
 
