@@ -57,26 +57,26 @@
       <button
         @click="onApply"
         type="button"
-        title="Apply Pallete as Color Theme"
+        title="Apply color pallete as theme"
         class="primary-button px-7 py-1 border w-auto"
       >
-        <i class="fa-solid fa-check"></i>
+        <span class="text-sm">Apply</span>
       </button>
       <button
         @click="onSave"
         type="button"
-        title="Save Color Theme"
+        title="Save color pallete"
         class="primary-button px-7 py-1 border w-auto"
       >
-        <i class="fa-solid fa-plus"></i>
+        <span class="text-sm">Save</span>
       </button>
       <button
         @click="onReset"
         type="reset"
-        title="Reset Color Theme"
+        title="Reset color theme"
         class="primary-button px-7 py-1 border w-auto"
       >
-        <i class="fa-solid fa-arrow-rotate-left"></i>
+        <span class="text-sm">Reset</span>
       </button>
     </div>
   </form>
