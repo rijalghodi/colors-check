@@ -175,6 +175,7 @@ export default {
 
       this.$emit("apply-color-theme", newColorTheme);
     },
+
     onSave() {
       if (
         !isHexColor(this.primary) ||
@@ -186,7 +187,7 @@ export default {
         );
         return;
       }
-      console.log("save");
+
       const newPallete = {
         id: createId(this.primary, this.neutral, this.accent),
         applied: false,

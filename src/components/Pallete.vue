@@ -5,18 +5,21 @@
   >
     <i :class="['fa-solid', 'fa-check', pallete.applied ? 'applied' : '']"></i>
   </button>
-  <div
-    class="w-1/4"
+  <button
+    class="w-1/4 hover:bg-opacity-80"
+    v-bind:title="pallete.primary"
     v-bind:style="{ 'background-color': pallete.primary }"
-  ></div>
-  <div
-    class="w-1/4 py-1"
+  ></button>
+  <button
+    class="w-1/4 py-1 hover:!bg-opacity-80"
+    v-bind:title="pallete.neutral"
     v-bind:style="{ 'background-color': pallete.neutral }"
-  ></div>
-  <div
-    class="w-1/4 py-1"
+  ></button>
+  <button
+    class="w-1/4 py-1 hover:bg-opacity-80"
+    v-bind:title="pallete.accent"
     v-bind:style="{ 'background-color': pallete.accent }"
-  ></div>
+  ></button>
   <button
     title="Delete This Pallete"
     @click="$emit('delete-pallete', pallete.id)"

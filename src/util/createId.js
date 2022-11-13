@@ -1,17 +1,22 @@
 function lengthenHex(hex) {
   const shortHex = "^#([A-Fa-f0-9]{3})$";
   if (!hex.match(shortHex)) {
+    console.log("not match shorthex");
     return;
   }
-  let longHex;
+  let longHex = "#";
 
   for (var i = 1; i < hex.length; i++) {
     longHex = longHex + hex[i] + hex[i];
+    console.log(longHex);
   }
+  return longHex;
 }
 
 function createId(color1, color2, color3) {
   console.log(color1);
+  console.log(color2);
+  console.log(color3);
   const longHex = "^#([A-Fa-f0-9]{6})$";
 
   const value1 = color1.match(longHex) ? color1 : lengthenHex(color1);

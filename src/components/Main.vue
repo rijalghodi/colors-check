@@ -72,6 +72,7 @@ export default {
 
     addPallete(newPallete) {
       if (this.palletes.find((pallete) => pallete.id === newPallete.id)) {
+        console.log(`Your new id: ${newPallete.id}`);
         alert(
           "Your new pallete has been added before. Check the color palletes box."
         );
