@@ -186,7 +186,7 @@ export default {
         );
         return;
       }
-
+      console.log("save");
       const newPallete = {
         id: createId(this.primary, this.neutral, this.accent),
         applied: false,
